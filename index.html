@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tim's Daily · 每日一学</title>
+<link rel="stylesheet" href="style.css">
+<script src="lang.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="brand"><span data-lang="en">Tim's Daily</span><span data-lang="zh" hidden>Tim 的每日一学</span></span>
+    <button class="lang-toggle" type="button">中文</button>
+  </header>
+  <h1><span data-lang="en">Learn something fun every day</span><span data-lang="zh" hidden>每天学点有趣的东西</span></h1>
+  <p class="sub"><span data-lang="en">One AI news story, one great read, and one surprising idea — every morning.</span><span data-lang="zh" hidden>每天早上：一条 AI 新闻、一篇好文章、一个意想不到的知识点。</span></p>
+
+  <div class="card latest" id="latest">
+    <span class="tag"><span data-lang="en">Latest</span><span data-lang="zh" hidden>最新</span></span>
+    <p id="latest-body"><span data-lang="en">No reports yet.</span><span data-lang="zh" hidden>还没有日报。</span></p>
+  </div>
+
+  <div class="card">
+    <div class="cal-head">
+      <button class="navbtn" id="prev" type="button" aria-label="Previous month">‹</button>
+      <h2 id="month-label"></h2>
+      <button class="navbtn" id="next" type="button" aria-label="Next month">›</button>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="legend">
+      <span><i style="background:var(--accent)"></i><span data-lang="en">Has a report</span><span data-lang="zh" hidden>有日报</span></span>
+      <span><i style="outline:2px solid var(--accent);outline-offset:-2px"></i><span data-lang="en">Today</span><span data-lang="zh" hidden>今天</span></span>
+    </div>
+  </div>
+  <footer>absurdwall.github.io/daily</footer>
+</div>
+<script>
+(function(){
+  var reports=[], byDate={};
+  function nyToday(){
+    var p=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+    return p; // YYYY-MM-DD
+  }
+  var today=nyToday();
+  var view={y:+today.slice(0,4), m:+today.slice(5,7)-1};
+  function pad(n){return (n<10?'0':'')+n}
+  function lang(){return window.DailyLang?window.DailyLang.get():'en'}
+  function esc(s){return String(s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function render(){
+    var L=lang();
+    var monthsEn=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    document.getElementById('month-label').textContent = L==='zh' ? (view.y+'年'+(view.m+1)+'月') : (monthsEn[view.m]+' '+view.y);
+    var dows = L==='zh' ? ['日','一','二','三','四','五','六'] : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    var g=document.getElementById('grid'), html='';
+    dows.forEach(function(d){html+='<div class="dow">'+d+'</div>'});
+    var first=new Date(Date.UTC(view.y,view.m,1)).getUTCDay();
+    var days=new Date(Date.UTC(view.y,view.m+1,0)).getUTCDate();
+    for(var i=0;i<first;i++) html+='<div class="day empty"></div>';
+    for(var d=1;d<=days;d++){
+      var key=view.y+'-'+pad(view.m+1)+'-'+pad(d);
+      var cls='day'+(key===today?' today':'');
+      var r=byDate[key];
+      if(r){
+        var t=esc(L==='zh'?(r.title_zh||r.title_en):(r.title_en||r.title_zh));
+        html+='<a class="'+cls+' has" href="days/'+key+'.html" title="'+t+'">'+d+'</a>';
+      } else html+='<div class="'+cls+'">'+d+'</div>';
+    }
+    g.innerHTML=html;
+    var lb=document.getElementById('latest-body');
+    if(reports.length){
+      var r0=reports[reports.length-1];
+      lb.innerHTML='<a href="days/'+r0.date+'.html">'+esc(r0.date)+' · '+esc(L==='zh'?(r0.title_zh||r0.title_en):(r0.title_en||r0.title_zh))+'</a>';
+    }
+  }
+  document.getElementById('prev').onclick=function(){view.m--; if(view.m<0){view.m=11;view.y--} render()};
+  document.getElementById('next').onclick=function(){view.m++; if(view.m>11){view.m=0;view.y++} render()};
+  document.addEventListener('langchange',render);
+  fetch('reports.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(list){
+    reports=(list||[]).slice().sort(function(a,b){return a.date<b.date?-1:1});
+    reports.forEach(function(r){byDate[r.date]=r});
+    render();
+  }).catch(render);
+  render();
+})();
+</script>
+</body>
+</html>
