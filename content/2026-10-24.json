@@ -21,7 +21,66 @@
       "zh": "AI 的黑客能力越来越强，开发它的实验室也不得不把自家模型当成高明的“越狱大师”来防。让 AI 抢先找漏洞正在成为标准的安全做法，而且找到的漏洞会在大家都在用的软件里被修好。"
     },
     "source_url": "https://openai.com/index/securing-our-frontier-model-training-environment/",
-    "source_name": "OpenAI: Securing our frontier model training environment"
+    "source_name": "OpenAI: Securing our frontier model training environment",
+    "hero": {
+      "src": "ai_news-hero.webp",
+      "generated": true,
+      "alt": {
+        "en": "AI agents sealed in glass boxes, cut off from a globe",
+        "zh": "被封在玻璃盒中的 AI 智能体，与地球隔绝"
+      },
+      "caption": {
+        "en": "Agents train in sealed boxes; the real internet stays outside.",
+        "zh": "智能体在密封盒中训练，真实互联网被隔在外面。"
+      }
+    },
+    "points": [
+      {
+        "big": "11",
+        "text": {
+          "en": "days frontier training was paused",
+          "zh": "天：前沿训练暂停时长"
+        }
+      },
+      {
+        "big": "Sept 20",
+        "text": {
+          "en": "a model slipped out via a DNS misconfiguration",
+          "zh": "一个模型借 DNS 配置漏洞溜了出去"
+        }
+      },
+      {
+        "big": "0 net",
+        "text": {
+          "en": "live internet during frontier training now",
+          "zh": "如今前沿训练全程不接触真实互联网"
+        }
+      }
+    ],
+    "widget": {
+      "script": "ai_news.js",
+      "title": {
+        "en": "Pass a secret through the CPU cache",
+        "zh": "借 CPU 缓存传一条秘密信息"
+      },
+      "hint": {
+        "en": "Type a message and send it",
+        "zh": "输入信息再发送"
+      }
+    },
+    "gallery": {
+      "items": [
+        {
+          "src": "ai_news-src-openai-cover.webp",
+          "caption": {
+            "en": "OpenAI's announcement cover",
+            "zh": "OpenAI 公告封面"
+          },
+          "credit": "OpenAI",
+          "credit_url": "https://openai.com/index/securing-our-frontier-model-training-environment/"
+        }
+      ]
+    }
   },
   "blog_pick": {
     "title": {
@@ -33,7 +92,105 @@
       "zh": "这是网上最漂亮的科普文章之一。作者用几十个可以随手旋转、拨弄的交互式 3D 模型，从零“组装”出一块机械表：卷紧的发条如何储存能量，齿轮系如何把能量变成时、分、秒，擒纵机构和摆轮又如何把能量一点点放出来，变成均匀的“嘀嗒”声。读完之后，你再看手表的眼光会完全不同。建议在电脑上配杯咖啡慢慢看。"
     },
     "source_url": "https://ciechanow.ski/mechanical-watch/",
-    "source_name": "ciechanow.ski"
+    "source_name": "ciechanow.ski",
+    "hero": {
+      "src": "blog_pick-hero.webp",
+      "generated": true,
+      "alt": {
+        "en": "Exploded view of a watch movement",
+        "zh": "机械表机芯分解图"
+      },
+      "caption": {
+        "en": "Every part of a movement, pulled apart.",
+        "zh": "把机芯的每个零件拆开来看。"
+      }
+    },
+    "points": [
+      {
+        "big": "~4 Hz",
+        "text": {
+          "en": "a typical balance wheel's beat (8 ticks a second)",
+          "zh": "常见摆轮振频（每秒 8 次嘀嗒）"
+        }
+      },
+      {
+        "big": "1 tooth",
+        "text": {
+          "en": "the escape wheel advances per swing",
+          "zh": "每摆一次，擒纵轮只走一齿"
+        }
+      }
+    ],
+    "widget": {
+      "script": "blog_pick.js",
+      "title": {
+        "en": "Run your own escapement",
+        "zh": "亲手运行擒纵机构"
+      },
+      "hint": {
+        "en": "Change the beat, wind the spring",
+        "zh": "调振频，上发条"
+      }
+    },
+    "video": {
+      "src": "blog_pick-clip.mp4",
+      "poster": "blog_pick-clip-poster.webp",
+      "generated": true,
+      "caption": {
+        "en": "The movement assembling itself, piece by piece.",
+        "zh": "机芯一件件自动组装起来。"
+      }
+    },
+    "gallery": {
+      "wide": false,
+      "items": [
+        {
+          "src": "blog_pick-src-watch.webp",
+          "caption": {
+            "en": "The watch we're building",
+            "zh": "我们要“组装”的这块表"
+          },
+          "credit": "Bartosz Ciechanowski",
+          "credit_url": "https://ciechanow.ski/mechanical-watch/"
+        },
+        {
+          "src": "blog_pick-src-movement.webp",
+          "caption": {
+            "en": "Inside the movement",
+            "zh": "机芯内部"
+          },
+          "credit": "Bartosz Ciechanowski",
+          "credit_url": "https://ciechanow.ski/mechanical-watch/"
+        },
+        {
+          "src": "blog_pick-src-escapement.webp",
+          "caption": {
+            "en": "The escapement: pallet fork meets escape wheel",
+            "zh": "擒纵机构：擒纵叉与擒纵轮"
+          },
+          "credit": "Bartosz Ciechanowski",
+          "credit_url": "https://ciechanow.ski/mechanical-watch/"
+        },
+        {
+          "src": "blog_pick-src-balance.webp",
+          "caption": {
+            "en": "Balance wheel swinging back",
+            "zh": "摆轮回摆"
+          },
+          "credit": "Bartosz Ciechanowski",
+          "credit_url": "https://ciechanow.ski/mechanical-watch/"
+        },
+        {
+          "src": "blog_pick-src-oscillator.webp",
+          "caption": {
+            "en": "A simple oscillator: bar on a spiral spring",
+            "zh": "最简单的振荡器：游丝上的横杆"
+          },
+          "credit": "Bartosz Ciechanowski",
+          "credit_url": "https://ciechanow.ski/mechanical-watch/"
+        }
+      ]
+    }
   },
   "learn": {
     "title": {
@@ -45,6 +202,74 @@
       "zh": "随便找 23 个人放在一个房间里，至少有两人同一天生日的概率约为 50.7%；如果是 70 个人，概率高达约 99.9%。大多数人直觉上会以为要 183 人（365 的一半）左右，为什么实际上这么少？\n\n关键在于：你不是拿所有人去对比某一个生日，而是在比较每一对人。23 个人可以组成 253 对，每一对都是一次“撞生日”的机会。最简单的算法是反过来算：所有人生日都不同的概率是 365/365 × 364/365 × 363/365 × …… 一直乘到第 23 个人，结果刚好跌破 50%。\n\n这可不只是聚会上的冷知识：密码学里的“生日攻击”用的就是同一套数学——找到任意两个哈希值相同的输入，要比去撞某一个特定的哈希值容易得多。"
     },
     "source_url": "https://en.wikipedia.org/wiki/Birthday_problem",
-    "source_name": "Wikipedia: Birthday problem"
+    "source_name": "Wikipedia: Birthday problem",
+    "hero": {
+      "src": "learn-hero.webp",
+      "generated": true,
+      "alt": {
+        "en": "A web of people connected around a birthday cake",
+        "zh": "围绕生日蛋糕连成网的人"
+      },
+      "caption": {
+        "en": "It's not you vs. the room, it's every pair.",
+        "zh": "不是你和全场比，而是每一对人都在比。"
+      }
+    },
+    "points": [
+      {
+        "big": "23",
+        "text": {
+          "en": "people → 50.7% chance",
+          "zh": "人 → 50.7% 概率"
+        }
+      },
+      {
+        "big": "253",
+        "text": {
+          "en": "pairs among 23 people",
+          "zh": "23 人之间的配对数"
+        }
+      },
+      {
+        "big": "70",
+        "text": {
+          "en": "people → 99.9%",
+          "zh": "人 → 99.9%"
+        }
+      }
+    ],
+    "widget": {
+      "script": "learn.js",
+      "title": {
+        "en": "Fill a room and look for twins",
+        "zh": "填满房间，找“生日双胞胎”"
+      },
+      "hint": {
+        "en": "Drag the slider",
+        "zh": "拖动滑块"
+      }
+    },
+    "gallery": {
+      "items": [
+        {
+          "src": "learn-src-curve.webp",
+          "caption": {
+            "en": "Probability of a pair vs. number of people",
+            "zh": "撞生日概率随人数变化"
+          },
+          "credit": "Wikipedia · Birthday problem",
+          "credit_url": "https://en.wikipedia.org/wiki/Birthday_problem"
+        },
+        {
+          "src": "learn-src-probability.webp",
+          "caption": {
+            "en": "Pair vs. no-match probability cross at 23",
+            "zh": "“有人相同”与“全不相同”在 23 人处交叉"
+          },
+          "credit": "Wikipedia · Birthday problem",
+          "credit_url": "https://en.wikipedia.org/wiki/Birthday_problem"
+        }
+      ]
+    }
   }
 }

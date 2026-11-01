@@ -1,49 +1,41 @@
 # Tim's Daily · 每日一学
 
-A tiny static site (GitHub Pages, no build step) with one bilingual (EN / 中文) learning report per day.
-
+Bright, clean, static site (GitHub Pages, no build step). One rich bilingual (EN / 中文) report per day.
 Live: https://absurdwall.github.io/daily/
 
 ## Structure
-
 ```
-index.html          calendar of all reports (reads reports.json), latest-report link
-reports.json        [{date: "YYYY-MM-DD", title_en, title_zh}, ...] sorted by date
-days/YYYY-MM-DD.html   one generated page per day
-content/YYYY-MM-DD.json source content for each day (pages are rendered from these)
-style.css           shared styles (light/dark, mobile friendly)
-lang.js             shared EN/中文 toggle; choice saved in localStorage ("daily-lang")
-tools/publish_day.py   generator + publisher
-.nojekyll           serve files as-is
-```
-
-Bilingual text is rendered as sibling elements with `data-lang="en"` / `data-lang="zh"`;
-`lang.js` hides the inactive language without reloading.
-
-## Publishing a day
-
-```
-python3 tools/publish_day.py path/to/content.json --date 2026-10-24
+index.html                calendar home (thumbnail day tiles, latest card, all-reports grid); reads reports.json
+reports.json              [{date, title_en, title_zh, thumb, thumbs[]}] (rebuilt from content/ by the script)
+days/YYYY-MM-DD.html      generated day pages
+content/YYYY-MM-DD.json   source content per day (source of truth)
+assets/YYYY-MM-DD/        that day's media + widget scripts (never hotlink)
+style.css · lang.js · site.js   shared theme, EN/中文 toggle (localStorage "daily-lang"), reveal/widget runtime
+tools/publish_day.py      validate → render → reports.json → git push
+tools/cdp.js              headless-Chrome helper for screenshots / console + 404 checks
+DAILY_PLAYBOOK.md         how to produce each day
 ```
 
-- `--date` defaults to today in America/New_York; `--no-push` skips git.
-- Idempotent: re-running a date overwrites that page and its reports.json entry.
-- Copies the content into `content/<date>.json`, re-renders all day pages (keeps prev/next links right),
-  then `git pull --rebase`, commit, and push to `main`.
+## Publish
+```
+python3 tools/publish_day.py content.json --date YYYY-MM-DD [--no-push]
+```
+Idempotent; re-renders all days (prev/next). Refuses to publish if a referenced asset is missing or a borrowed visual lacks credit.
 
-## Content JSON schema
-
-Every `{en, zh}` pair is required. Plain text; a blank line starts a new paragraph.
-
+## Rich content schema (per section: ai_news, blog_pick, learn)
+Bilingual text = `{"en","zh"}`. Media names are relative to `assets/<date>/`.
 ```json
 {
-  "title":   {"en": "Headline", "zh": "标题"},
-  "intro":   {"en": "Optional intro", "zh": "可选导语"},
-  "ai_news": {"title": {"en":"","zh":""}, "body": {"en":"","zh":""}, "why": {"en":"","zh":""},
-              "source_url": "https://...", "source_name": "optional"},
-  "blog_pick": {"title": {"en":"","zh":""}, "body": {"en":"","zh":""},
-                "source_url": "https://...", "source_name": "optional"},
-  "learn":   {"title": {"en":"","zh":""}, "body": {"en":"","zh":""},
-              "source_url": "https://...", "source_name": "optional"}
+  "title": {"en","zh"}, "intro": {"en","zh"},
+  "ai_news": {
+    "title": {}, "body": {}, "why": {},                 // why required for ai_news
+    "source_url": "https://...", "source_name": "...",
+    "hero":   {"src": "x-hero.webp", "generated": true, "alt": {}, "caption": {}},   // or credit+credit_url
+    "points": [{"big": "11", "text": {}}],
+    "widget": {"script": "ai_news.js", "title": {}, "hint": {}},
+    "video":  {"src": "clip.mp4", "poster": "clip.webp", "generated": true, "caption": {}},
+    "gallery":{"items": [{"src": "src-1.webp", "caption": {}, "credit": "Who", "credit_url": "https://..."}]}
+  }
 }
 ```
+Widget script: `DailyWidget.register('<section>', function(el, ctx){ ... })` — `ctx.bi(en,zh)`, `ctx.lang()`, `ctx.onLang(fn)`, `ctx.onVisible(fn)`, `ctx.reduced`. Reusable classes: `.w-row .w-btn(.primary) .w-input .w-label .w-big .w-muted .w-grid2 .w-panel .mono`.

@@ -4,24 +4,31 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Tim's Daily · 每日一学</title>
-<link rel="stylesheet" href="style.css">
+<meta name="description" content="One AI story, one great read, one surprising idea — every day, in English and 中文.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600..900&family=Inter:wght@400..800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2214%22 fill=%22%234f46e5%22/%3E%3C/svg%3E"><link rel="stylesheet" href="style.css">
 <script src="lang.js"></script>
+<script src="site.js" defer></script>
 </head>
 <body>
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="./"><span class="dot"></span><span data-lang="en">Tim's Daily</span><span data-lang="zh">Tim 的每日一学</span></a>
+  <button class="lang-toggle" type="button">EN / 中文</button>
+</div></header>
+<main>
+<section class="home-hero day-hero"><div class="wrap">
+  <span class="eyebrow reveal" id="today-label"></span>
+  <h1 class="display reveal"><span data-lang="en">Learn something fun, every day.</span><span data-lang="zh">每天，学点好玩的。</span></h1>
+  <div class="lede reveal"><p data-lang="en">One AI story, one great read, one surprising idea — with pictures, clips and things you can play with.</p><p data-lang="zh">一条 AI 新闻、一篇好文、一个意想不到的知识点——配上图片、短片和可以动手玩的互动。</p></div>
+  <a class="latest-card reveal" id="latest" href="#" hidden>
+    <div class="img"><img id="latest-img" alt=""></div>
+    <div class="txt"><span class="sec-tag"><span data-lang="en">Latest report</span><span data-lang="zh">最新一期</span></span>
+      <span class="w-muted" id="latest-date"></span><h2 id="latest-title"></h2><div class="thumbs" id="latest-thumbs"></div></div>
+  </a>
+</div></section>
 <div class="wrap">
-  <header class="top">
-    <span class="brand"><span data-lang="en">Tim's Daily</span><span data-lang="zh" hidden>Tim 的每日一学</span></span>
-    <button class="lang-toggle" type="button">中文</button>
-  </header>
-  <h1><span data-lang="en">Learn something fun every day</span><span data-lang="zh" hidden>每天学点有趣的东西</span></h1>
-  <p class="sub"><span data-lang="en">One AI news story, one great read, and one surprising idea — every morning.</span><span data-lang="zh" hidden>每天早上：一条 AI 新闻、一篇好文章、一个意想不到的知识点。</span></p>
-
-  <div class="card latest" id="latest">
-    <span class="tag"><span data-lang="en">Latest</span><span data-lang="zh" hidden>最新</span></span>
-    <p id="latest-body"><span data-lang="en">No reports yet.</span><span data-lang="zh" hidden>还没有日报。</span></p>
-  </div>
-
-  <div class="card">
+  <section class="cal reveal">
     <div class="cal-head">
       <button class="navbtn" id="prev" type="button" aria-label="Previous month">‹</button>
       <h2 id="month-label"></h2>
@@ -29,56 +36,56 @@
     </div>
     <div class="grid" id="grid"></div>
     <div class="legend">
-      <span><i style="background:var(--accent)"></i><span data-lang="en">Has a report</span><span data-lang="zh" hidden>有日报</span></span>
-      <span><i style="outline:2px solid var(--accent);outline-offset:-2px"></i><span data-lang="en">Today</span><span data-lang="zh" hidden>今天</span></span>
+      <span><i style="background:linear-gradient(135deg,var(--indigo),var(--coral))"></i><span data-lang="en">Has a report — click it</span><span data-lang="zh">有日报，点开看</span></span>
+      <span><i style="border:2px solid var(--indigo)"></i><span data-lang="en">Today</span><span data-lang="zh">今天</span></span>
     </div>
-  </div>
-  <footer>absurdwall.github.io/daily</footer>
+  </section>
+  <h3 class="gal-title reveal"><span data-lang="en">All reports</span><span data-lang="zh">全部日报</span></h3>
+  <div class="recent" id="recent"></div>
 </div>
+</main>
+<footer>absurdwall.github.io/daily · <span data-lang="en">Made with curiosity</span><span data-lang="zh">好奇心出品</span></footer>
 <script>
 (function(){
-  var reports=[], byDate={};
-  function nyToday(){
-    var p=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-    return p; // YYYY-MM-DD
-  }
-  var today=nyToday();
+  var reports=[], by={};
+  var today=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
   var view={y:+today.slice(0,4), m:+today.slice(5,7)-1};
   function pad(n){return (n<10?'0':'')+n}
-  function lang(){return window.DailyLang?window.DailyLang.get():'en'}
+  function L(){return window.DailyLang.get()}
   function esc(s){return String(s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function ttl(r){return L()==='zh'?(r.title_zh||r.title_en):(r.title_en||r.title_zh)}
+  var MEN=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  function fmt(d){var y=+d.slice(0,4),m=+d.slice(5,7),dd=+d.slice(8,10);return L()==='zh'?(y+'年'+m+'月'+dd+'日'):(MEN[m-1]+' '+dd+', '+y)}
   function render(){
-    var L=lang();
-    var monthsEn=['January','February','March','April','May','June','July','August','September','October','November','December'];
-    document.getElementById('month-label').textContent = L==='zh' ? (view.y+'年'+(view.m+1)+'月') : (monthsEn[view.m]+' '+view.y);
-    var dows = L==='zh' ? ['日','一','二','三','四','五','六'] : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-    var g=document.getElementById('grid'), html='';
-    dows.forEach(function(d){html+='<div class="dow">'+d+'</div>'});
-    var first=new Date(Date.UTC(view.y,view.m,1)).getUTCDay();
-    var days=new Date(Date.UTC(view.y,view.m+1,0)).getUTCDate();
-    for(var i=0;i<first;i++) html+='<div class="day empty"></div>';
-    for(var d=1;d<=days;d++){
-      var key=view.y+'-'+pad(view.m+1)+'-'+pad(d);
-      var cls='day'+(key===today?' today':'');
-      var r=byDate[key];
-      if(r){
-        var t=esc(L==='zh'?(r.title_zh||r.title_en):(r.title_en||r.title_zh));
-        html+='<a class="'+cls+' has" href="days/'+key+'.html" title="'+t+'">'+d+'</a>';
-      } else html+='<div class="'+cls+'">'+d+'</div>';
+    document.getElementById('today-label').textContent=(L()==='zh'?'今天 · ':'Today · ')+fmt(today);
+    document.getElementById('month-label').textContent=L()==='zh'?(view.y+'年'+(view.m+1)+'月'):(MEN[view.m]+' '+view.y);
+    var dows=L()==='zh'?['日','一','二','三','四','五','六']:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    var h=dows.map(function(d){return '<div class="dow">'+d+'</div>'}).join('');
+    var first=new Date(Date.UTC(view.y,view.m,1)).getUTCDay(), n=new Date(Date.UTC(view.y,view.m+1,0)).getUTCDate();
+    for(var i=0;i<first;i++) h+='<div class="day empty"></div>';
+    for(var d=1;d<=n;d++){
+      var k=view.y+'-'+pad(view.m+1)+'-'+pad(d), c='day'+(k===today?' today':''), r=by[k];
+      h+= r ? '<a class="'+c+' has" href="days/'+k+'.html" title="'+esc(ttl(r))+'">'+(r.thumb?'<img src="'+esc(r.thumb)+'" alt="" loading="lazy">':'')+'<span>'+d+'</span></a>'
+            : '<div class="'+c+'"><span>'+d+'</span></div>';
     }
-    g.innerHTML=html;
-    var lb=document.getElementById('latest-body');
+    document.getElementById('grid').innerHTML=h;
     if(reports.length){
-      var r0=reports[reports.length-1];
-      lb.innerHTML='<a href="days/'+r0.date+'.html">'+esc(r0.date)+' · '+esc(L==='zh'?(r0.title_zh||r0.title_en):(r0.title_en||r0.title_zh))+'</a>';
+      var r0=reports[reports.length-1], a=document.getElementById('latest');
+      a.hidden=false; a.href='days/'+r0.date+'.html';
+      document.getElementById('latest-img').src=r0.thumb||'';
+      document.getElementById('latest-date').textContent=fmt(r0.date);
+      document.getElementById('latest-title').textContent=ttl(r0);
+      document.getElementById('latest-thumbs').innerHTML=(r0.thumbs||[]).map(function(t){return '<img src="'+esc(t)+'" alt="">'}).join('');
+      document.getElementById('recent').innerHTML=reports.slice().reverse().map(function(r){
+        return '<a href="days/'+r.date+'.html">'+(r.thumb?'<img src="'+esc(r.thumb)+'" alt="" loading="lazy">':'')+'<div class="m"><div class="d">'+esc(fmt(r.date))+'</div>'+esc(ttl(r))+'</div></a>'}).join('');
     }
   }
-  document.getElementById('prev').onclick=function(){view.m--; if(view.m<0){view.m=11;view.y--} render()};
-  document.getElementById('next').onclick=function(){view.m++; if(view.m>11){view.m=0;view.y++} render()};
+  document.getElementById('prev').onclick=function(){if(--view.m<0){view.m=11;view.y--}render()};
+  document.getElementById('next').onclick=function(){if(++view.m>11){view.m=0;view.y++}render()};
   document.addEventListener('langchange',render);
   fetch('reports.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(list){
-    reports=(list||[]).slice().sort(function(a,b){return a.date<b.date?-1:1});
-    reports.forEach(function(r){byDate[r.date]=r});
+    reports=(list||[]).slice().sort(function(a,b){return a.date<b.date?-1:1}); reports.forEach(function(r){by[r.date]=r});
+    var ym=today.slice(0,7); if(reports.length&&!reports.some(function(r){return r.date.slice(0,7)===ym})){var l=reports[reports.length-1].date;view={y:+l.slice(0,4),m:+l.slice(5,7)-1}}
     render();
   }).catch(render);
   render();
