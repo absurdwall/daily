@@ -1,0 +1,78 @@
+{
+  "title": {"en": "Invisible watermarks in AI text, the best guide to hexagons, and folding paper to the Moon",
+            "zh": "AI 文字里的隐形水印、最好的六边形网格指南，以及把纸折到月球"},
+  "intro": {"en": "Happy Monday, Tim! A fresh week, three fresh things to play with.",
+            "zh": "周一快乐，Tim！新的一周，送上三样新鲜好玩的东西。"},
+  "ai_news": {
+    "title": {"en": "From Nov 7, Grok API text will carry an invisible watermark by default",
+              "zh": "从 11 月 7 日起，Grok API 生成的文字将默认带上隐形水印"},
+    "body": {"en": "xAI (its developer docs now say SpaceXSI) published a new Output Watermarking page on Oct 31. Starting November 7, text from grok-4.7, grok-4.6, grok-4.5, grok-4.3 and the three grok-4.20 models gets a hidden watermark by default, on every API endpoint. It covers normal replies, structured outputs and even tool-call arguments, and developers don't need to change any code.\n\nThe neat part is how it works. Nothing is added to the text: no hidden characters, no markup. Instead, while the model writes, the watermark \"slightly shapes which tokens the model picks.\" Later, a detector scores a piece of text and says watermarked, not watermarked, or uncertain, and the docs note that longer text gives a stronger signal. Each API response also gets an x-watermark: true header so developers can log which outputs were marked. Team admins can opt out per model, but only after confirming a legal exception applies, and the stated reason for all this is the EU AI Act.",
+             "zh": "xAI（其开发者文档现在署名 SpaceXSI）在 10 月 31 日发布了新的“输出水印”文档。从 11 月 7 日起，grok-4.7、grok-4.6、grok-4.5、grok-4.3 以及三个 grok-4.20 模型生成的文字，会在所有 API 端点上默认带隐形水印。普通回复、结构化输出，甚至工具调用参数都包括在内，开发者不用改任何代码。\n\n妙的是它的原理：文字里什么都没加，没有隐藏字符，也没有标记。水印是在模型写字的过程中，“轻微地影响模型选哪些词”。之后，检测器给一段文字打分，判断为有水印、无水印或不确定；文档还特别说明，文字越长，信号越强。每个 API 响应还会带上 x-watermark: true 的响应头，方便开发者记录哪些输出被打了水印。团队管理员可以按模型关闭，但必须先确认符合法律上的例外情形。xAI 给出的理由是遵守欧盟《人工智能法》。"},
+    "why": {"en": "As AI text floods the web, \"was this written by a model?\" is getting hard to answer by eye. Statistical watermarks are one of the few ideas that actually scale, and regulation like the EU AI Act is now pushing big labs to switch them on by default. The catch: the signal lives in word choices, so short or heavily rewritten text is hard to judge.",
+            "zh": "AI 生成的文字越来越多，“这是不是模型写的？”已经很难靠肉眼判断。统计水印是少数真正能大规模用起来的办法，而欧盟《人工智能法》这样的法规正推动大厂默认开启它。不过要注意：信号藏在用词选择里，所以太短或被大幅改写的文字就很难判断。"},
+    "source_url": "https://docs.x.ai/developers/advanced-api-usage/watermarking",
+    "source_name": "SpaceXSI Docs: Output Watermarking",
+    "hero": {"src": "ai_news-hero.webp", "generated": true,
+             "alt": {"en": "Word tiles flowing from an AI chip, some secretly tinted, revealed by a magnifying glass", "zh": "从 AI 芯片流出的词块，其中一些被悄悄染色，在放大镜下现形"},
+             "caption": {"en": "The mark isn't in the letters, it's in which words get picked.", "zh": "水印不在字面上，而在“选了哪些词”里。"}},
+    "points": [
+      {"big": "Nov 7", "text": {"en": "watermarking turns on by default", "zh": "水印默认开启的日子"}},
+      {"big": "7", "text": {"en": "Grok models covered at launch", "zh": "首批覆盖的 Grok 模型数"}},
+      {"big": "0", "text": {"en": "extra characters added to the text", "zh": "额外加进文字里的字符数"}}
+    ],
+    "widget": {"script": "ai_news.js",
+               "title": {"en": "Be the watermark detector", "zh": "当一回水印检测器"},
+               "hint": {"en": "Write, reveal, paraphrase, change the length", "zh": "生成、显形、改写、调长度"}},
+    "gallery": {"items": [
+      {"src": "ai_news-src-docs.webp", "caption": {"en": "The new Output Watermarking page", "zh": "新的“输出水印”文档页"}, "credit": "SpaceXSI Docs", "credit_url": "https://docs.x.ai/developers/advanced-api-usage/watermarking"},
+      {"src": "ai_news-src-how.webp", "caption": {"en": "How it works: shaping token choices, detected statistically", "zh": "原理：影响用词选择，再用统计方法检测"}, "credit": "SpaceXSI Docs", "credit_url": "https://docs.x.ai/developers/advanced-api-usage/watermarking"}
+    ]}
+  },
+  "blog_pick": {
+    "title": {"en": "Hexagonal Grids, by Amit Patel (Red Blob Games)", "zh": "《六边形网格》，作者 Amit Patel（Red Blob Games）"},
+    "body": {"en": "If you've ever played a strategy game on a honeycomb map, there's a good chance its developers learned the math here. Amit Patel started this guide in March 2013 and has kept polishing it ever since (last updated in 2026). Almost every diagram is alive: hover, drag and toggle to see how hexes are laid out, how to number them, and how to do distances, lines, rings, rotation and pathfinding.\n\nThe big \"aha\" is cube coordinates. Give each hex three numbers (q, r, s) that always add up to zero, and suddenly a hex grid behaves like a slice of a 3D cube grid. Distance becomes a one-liner, rotating by 60° is just shuffling the three numbers, and drawing a straight line is \"step along and round to the nearest hex.\" It's the rare tutorial that's useful for game devs and pure joy for everyone else.",
+             "zh": "如果你玩过蜂窝地图的策略游戏，它的开发者很可能就是在这里学的数学。Amit Patel 从 2013 年 3 月开始写这篇指南，此后一直在打磨（最近一次更新是 2026 年）。几乎每张图都是“活”的：鼠标悬停、拖动、切换，就能看到六边形怎么排布、怎么编号，以及距离、直线、环、旋转、寻路怎么算。\n\n最大的“原来如此”是立方坐标：给每个六边形三个数 (q, r, s)，并且三者之和永远为 0，六边形网格就突然变成了三维立方体网格的一个切片。算距离只要一行，旋转 60° 只是把三个数挪个位置，画直线就是“一步步插值再取整到最近的六边形”。这是少见的既对游戏开发者实用、又让普通读者看得很过瘾的教程。"},
+    "source_url": "https://www.redblobgames.com/grids/hexagons/",
+    "source_name": "Red Blob Games",
+    "hero": {"src": "blog_pick-hero.webp", "generated": true,
+             "alt": {"en": "A pastel hex-tile game map with a glowing path to a treasure chest", "zh": "粉彩六边形地图，一条发光小路通向宝箱"},
+             "caption": {"en": "Every hex strategy game needs the same few tricks.", "zh": "每个六边形策略游戏都离不开这几招。"}},
+    "points": [
+      {"big": "q+r+s=0", "text": {"en": "the one rule behind cube coordinates", "zh": "立方坐标背后的唯一规则"}},
+      {"big": "6", "text": {"en": "neighbors per hex, all equally far away", "zh": "个邻居，而且距离都一样"}},
+      {"big": "2013", "text": {"en": "first written, still being updated", "zh": "年首次发布，至今仍在更新"}}
+    ],
+    "widget": {"script": "blog_pick.js",
+               "title": {"en": "Play with cube coordinates", "zh": "玩一玩立方坐标"},
+               "hint": {"en": "Hover, click, rotate, toggle rings", "zh": "悬停、点击、旋转、切换环"}},
+    "gallery": {"items": [
+      {"src": "blog_pick-src-spacing.webp", "caption": {"en": "Spacing: how hexes tile together", "zh": "间距：六边形如何拼在一起"}, "credit": "Amit Patel · Red Blob Games", "credit_url": "https://www.redblobgames.com/grids/hexagons/"},
+      {"src": "blog_pick-src-cube.webp", "caption": {"en": "Cube coordinates: q, r and s axes", "zh": "立方坐标：q、r、s 三条轴"}, "credit": "Amit Patel · Red Blob Games", "credit_url": "https://www.redblobgames.com/grids/hexagons/"},
+      {"src": "blog_pick-src-distance.webp", "caption": {"en": "Distances radiate out in rings", "zh": "距离一圈圈向外扩散"}, "credit": "Amit Patel · Red Blob Games", "credit_url": "https://www.redblobgames.com/grids/hexagons/"}
+    ]}
+  },
+  "learn": {
+    "title": {"en": "Fold a sheet of paper 42 times and it would reach the Moon", "zh": "把一张纸对折 42 次，厚度就能够到月球"},
+    "body": {"en": "Take an ordinary 0.1 mm sheet and fold it in half: 0.2 mm. Again: 0.4 mm. Each fold doubles the thickness, so after n folds it's 0.1 mm × 2ⁿ. That starts boring and then gets wild. 23 folds is about 839 m, taller than the Burj Khalifa. 30 folds is about 107 km, past the edge of space. 42 folds is about 440,000 km, more than the Moon's average distance of 384,400 km. 51 would pass the Sun.\n\nSo why can't you do it? Because folding eats paper. In 2001, California high-schooler Britney Gallivan worked out how much length you need to fold in one direction: L = πt/6 × (2ⁿ + 4)(2ⁿ − 1). That grows roughly 4× per fold. In January 2002 she proved her math by folding a roughly 4,000-foot (1.2 km) strip of toilet paper 12 times, breaking the old \"you can't fold paper more than 8 times\" myth. Plug in 42 folds and her formula wants a strip about 107,000 light-years long, roughly the width of the Milky Way.",
+             "zh": "拿一张普通的 0.1 毫米厚的纸对折一次：0.2 毫米；再折：0.4 毫米。每折一次厚度翻倍，所以折 n 次就是 0.1 毫米 × 2ⁿ。一开始很无聊，后面就离谱了：23 次约 839 米，比哈利法塔还高；30 次约 107 公里，冲出太空边界；42 次约 44 万公里，超过地月平均距离 38.44 万公里；51 次就能越过太阳。\n\n那为什么做不到？因为对折会“吃纸”。2001 年，加州高中生 Britney Gallivan 推导出单方向对折所需的纸长：L = πt/6 × (2ⁿ + 4)(2ⁿ − 1)，大约每多折一次就要 4 倍长的纸。2002 年 1 月，她用一条约 4000 英尺（约 1.2 公里）长的卫生纸成功对折 12 次，打破了“纸最多只能折 8 次”的老说法。把 42 次代入她的公式，需要一条约 10.7 万光年长的纸条，差不多是银河系的直径。"},
+    "source_url": "https://en.wikipedia.org/wiki/Mathematics_of_paper_folding",
+    "source_name": "Wikipedia: Mathematics of paper folding",
+    "hero": {"src": "learn-hero.webp", "generated": true,
+             "alt": {"en": "A stack of folded paper rising from a desk on Earth up to the Moon", "zh": "一摞折叠的纸从地球上的书桌一路升到月球"},
+             "caption": {"en": "Doubling is slow, then sudden.", "zh": "翻倍一开始很慢，然后突然爆发。"}},
+    "points": [
+      {"big": "42", "text": {"en": "folds of 0.1 mm paper → past the Moon", "zh": "次对折 0.1 毫米的纸 → 超过月球"}},
+      {"big": "12", "text": {"en": "folds: Britney Gallivan's record (2002)", "zh": "次：Britney Gallivan 的纪录（2002 年）"}},
+      {"big": "~4×", "text": {"en": "more paper needed for each extra fold", "zh": "每多折一次所需纸长的倍数"}}
+    ],
+    "widget": {"script": "learn.js",
+               "title": {"en": "Fold your way to the Moon", "zh": "一路折到月球"},
+               "hint": {"en": "Drag the slider or hit Fold", "zh": "拖动滑块或点“再折一次”"}},
+    "video": {"src": "learn-clip.mp4", "poster": "learn-clip-poster.webp", "generated": true,
+              "caption": {"en": "Every fold doubles the stack, until it touches the Moon.", "zh": "每折一次纸堆翻倍，直到碰到月球。"}},
+    "gallery": {"items": [
+      {"src": "learn-src-miura.webp", "caption": {"en": "Miura-ori crease pattern, a fold used for solar panels in space", "zh": "三浦折叠的折痕图，曾用于太空太阳能板"}, "credit": "Wikimedia Commons · Mathematics of paper folding", "credit_url": "https://commons.wikimedia.org/wiki/File:Miura-Ori_CP.svg"},
+      {"src": "learn-src-mapfold.webp", "caption": {"en": "The ways to fold a 2×2 map", "zh": "一张 2×2 地图的各种折法"}, "credit": "Wikimedia Commons · Mathematics of paper folding", "credit_url": "https://commons.wikimedia.org/wiki/File:MapFoldings-2x2.png"}
+    ]}
+  }
+}

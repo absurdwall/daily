@@ -9,5 +9,16 @@
       "assets/2026-10-24/blog_pick-hero.webp",
       "assets/2026-10-24/learn-hero.webp"
     ]
+  },
+  {
+    "date": "2026-11-02",
+    "title_en": "Invisible watermarks in AI text, the best guide to hexagons, and folding paper to the Moon",
+    "title_zh": "AI 文字里的隐形水印、最好的六边形网格指南，以及把纸折到月球",
+    "thumb": "assets/2026-11-02/ai_news-hero.webp",
+    "thumbs": [
+      "assets/2026-11-02/ai_news-hero.webp",
+      "assets/2026-11-02/blog_pick-hero.webp",
+      "assets/2026-11-02/learn-hero.webp"
+    ]
   }
 ]
